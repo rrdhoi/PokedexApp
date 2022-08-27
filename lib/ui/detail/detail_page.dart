@@ -120,24 +120,39 @@ class DetailPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 6),
-                SizedBox(
-                  height: 70,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        width: 80,
-                        margin: const EdgeInsets.only(right: 12),
-                        decoration: BoxDecoration(
-                            color: Colors.green[50],
+                AnimatedBuilder(
+                  animation: animation,
+                  builder: (_, __) {
+                    return FadeTransition(
+                      opacity: CurvedAnimation(
+                        parent: animation,
+                        curve: const Interval(0.2, 1, curve: Curves.easeInOut),
+                      ),
+                      child: __,
+                    );
+                  },
+                  child: SizedBox(
+                    height: 70,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 3,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          width: 80,
+                          margin: const EdgeInsets.only(right: 12),
+                          decoration: BoxDecoration(
+                            color: bgColor.withOpacity(0.15),
                             borderRadius: BorderRadius.circular(12),
-                            image: const DecorationImage(
-                              image: NetworkImage(
-                                  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/1.png'),
-                            )),
-                      );
-                    },
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Image.network(
+                              pokemon.imageUrl,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
